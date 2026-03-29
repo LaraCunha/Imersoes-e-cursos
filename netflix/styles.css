@@ -1,0 +1,275 @@
+/* Aplica box-sizing border-box a todos os elementos para incluir padding e border na largura/altura total */
+* {
+    box-sizing: border-box;
+}
+
+/* Define variáveis CSS para cores e valores reutilizáveis, facilitando manutenção */
+:root {
+    --bg: #111; /* cor de fundo principal escura */
+    --card: #181818; /* cor de fundo dos cards de perfil */
+    --card-hover: #272727; /* cor de fundo no hover (não usado atualmente) */
+    --text: #ffffff; /* cor do texto principal */
+    --muted: #b3b3b3; /* cor do texto secundário (nomes dos perfis) */
+    --primary: #ff69b4; /* cor de destaque para hover */
+    --line: rgba(255, 255, 255, 0.1); /* cor da borda sutil */
+}
+
+/* Estilo do corpo da página */
+body {
+    margin: 0; /* remove margem padrão do navegador */
+    min-height: 100vh; /* garante altura mínima de 100% da viewport */
+    background: radial-gradient(circle at top, #2a2a2a 0%, var(--bg) 65%); /* gradiente radial escuro inspirado na Netflix */
+    color: var(--text); /* cor do texto */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* fonte sans-serif moderna */
+    overflow-x: hidden; /* evita barra de rolagem horizontal */
+}
+
+/* Container principal da página */
+main {
+    width: min(1120px, 90vw); /* largura máxima de 1120px ou 90% da viewport, o que for menor */
+    margin: 2.5rem auto; /* margem superior/inferior de 2.5rem, centralizado horizontalmente */
+    padding: 1rem; /* espaçamento interno */
+    text-align: center; /* centraliza o conteúdo de texto */
+}
+
+/* Estilo do título principal */
+h1 {
+    font-size: clamp(1.7rem, 3vw, 2.5rem); /* tamanho responsivo: mínimo 1.7rem, ideal 3vw, máximo 2.5rem */
+    font-weight: 800; /* peso da fonte extra-bold */
+    letter-spacing: 0.03em; /* espaçamento entre letras */
+    margin-bottom: 1.6rem; /* margem inferior */
+    margin-left: auto; /* centralização horizontal */
+    margin-right: auto;
+    max-width: 720px; /* largura máxima do título */
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+/* Garante que a section com aria-label seja exibida como bloco */
+section[aria-label] {
+    display: block;
+}
+
+/* Container dos perfis em grid */
+nav.profiles {
+    display: grid; /* usa CSS Grid para layout */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* colunas automáticas com mínimo 140px */
+    gap: 1rem; /* espaçamento entre itens */
+    list-style: none; /* remove marcadores de lista */
+    padding: 0; /* remove padding padrão */
+    margin: 0; /* remove margem padrão */
+}
+
+/* Estilo dos links dos perfis */
+nav.profiles a {
+    color: inherit; /* herda cor do texto do pai */
+    text-decoration: none; /* remove sublinhado */
+    display: block; /* torna o link um bloco para área clicável maior */
+    text-align: center; /* centraliza o conteúdo */
+}
+
+/* Efeitos de hover e foco nas figuras */
+figure:hover,
+figure:focus-visible {
+    transform: translateY(-3px); /* move a figura para cima no hover */
+    border-color: var(--primary); /* muda cor da borda para destaque */
+    box-shadow: 0 12px 24px rgba(0,0,0,.4); /* adiciona sombra */
+}
+
+/* Estilo das figuras (containers das imagens) */
+figure {
+    margin: 0; /* remove margem */
+    position: relative; /* para posicionamento relativo */
+    aspect-ratio: 1; /* mantém proporção quadrada */
+    border-radius: 10px; /* cantos arredondados */
+    overflow: hidden; /* corta conteúdo que exceda */
+    background: var(--card); /* fundo escuro */
+    border: 1px solid var(--line); /* borda sutil */
+    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease; /* animações suaves */
+}
+
+/* Estilo das imagens */
+img {
+    width: 100%; /* largura total do container */
+    height: 100%; /* altura total do container */
+    display: block; /* remove espaço extra abaixo da imagem */
+    object-fit: cover; /* cobre o container mantendo proporção */
+}
+
+/* Estilo dos textos dos perfis (figcaption) */
+figcaption {
+    margin-top: 1rem; /* espaçamento superior */
+    font-size: 0.95rem; /* tamanho da fonte */
+    font-weight: 400; /* peso leve para "fofinho" */
+    color: var(--muted); /* cor secundária */
+    text-align: center; /* centraliza o texto */
+    padding: 0; /* remove padding */
+    background: none; /* sem fundo */
+    border: none; /* sem borda */
+}
+
+/* Estilo específico para o card de gerenciar perfis */
+.manage-profiles figure {
+    background: var(--card); /* fundo escuro */
+    display: flex; /* usa flexbox */
+    align-items: center; /* centraliza verticalmente */
+    justify-content: center; /* centraliza horizontalmente */
+    font-size: 1.2rem; /* tamanho da fonte */
+    color: var(--muted); /* cor do texto */
+    border: 2px dashed var(--line); /* borda tracejada */
+}
+
+/* Estilo do ícone no gerenciar perfis */
+.manage-profiles figure span {
+    font-size: 3rem; /* tamanho grande para o ícone */
+}
+
+/* Estilo do texto no gerenciar perfis */
+.manage-profiles figcaption {
+    margin-top: 1rem; /* espaçamento superior */
+}
+
+/* Botão de toggle de tema */
+#theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.5); /* fundo semi-transparente */
+    color: var(--text);
+    border: none; /* sem borda */
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 200ms ease, transform 200ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+#theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.7); /* mais opaco no hover */
+    transform: scale(1.1); /* leve zoom */
+}
+
+#theme-toggle:hover {
+    background: var(--card-hover);
+    border-color: var(--primary);
+}
+
+/* Modo claro */
+.light-mode {
+    --bg: #f5f5f5;
+    --card: #ffffff;
+    --card-hover: #e0e0e0;
+    --text: #000000;
+    --muted: #666666;
+    --primary: #007bff;
+    --line: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode body {
+    background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 65%);
+}
+
+/* Estilo do catálogo */
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.catalog-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1rem;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.catalog-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,.25);
+}
+
+.back-link {
+    color: var(--text);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 1.5rem;
+    transition: background 200ms ease, color 200ms ease;
+}
+
+.back-link:hover {
+    background: var(--line);
+    color: var(--text);
+}
+
+/* Ajustes para telas menores (mobile) */
+@media (max-width: 640px) {
+    main {
+        margin: 1rem auto; /* margem menor para telas pequenas */
+        padding: 0.5rem; /* padding reduzido */
+    }
+
+    h1 {
+        text-align: center; /* centraliza título */
+        font-size: clamp(1.5rem, 5vw, 2rem); /* tamanho ajustado para mobile */
+    }
+
+    nav.profiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 colunas em telas pequenas */
+        gap: 0.75rem; /* gap menor */
+    }
+
+    figcaption {
+        font-size: 0.85rem; /* fonte menor para nomes */
+        margin-top: 0.75rem; /* espaçamento reduzido */
+    }
+}
+
+/* Ajustes para telas médias (tablets) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    main {
+        margin: 2rem auto; /* margem média */
+        padding: 0.75rem; /* padding médio */
+    }
+
+    nav.profiles {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* colunas ajustadas para tablets */
+        gap: 1.25rem; /* gap médio */
+    }
+
+    figcaption {
+        font-size: 0.9rem; /* fonte média */
+        margin-top: 0.9rem; /* espaçamento médio */
+    }
+}
+
+/* Ajustes para telas grandes (desktops) */
+@media (min-width: 1025px) {
+    main {
+        margin: 3rem auto; /* margem maior para telas grandes */
+        padding: 1.5rem; /* padding maior */
+    }
+
+    nav.profiles {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* colunas maiores para desktops */
+        gap: 1.5rem; /* gap maior */
+    }
+
+    figcaption {
+        font-size: 1rem; /* fonte maior */
+        margin-top: 1.25rem; /* espaçamento maior */
+    }
+}
